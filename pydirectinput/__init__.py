@@ -1074,7 +1074,9 @@ class _MapVirtualKeyWType(Protocol):
     restype: type[UINT]
 
     def __call__(
-        self, uCode: UINT | int, uMapType: UINT | int
+        self,
+        uCode: UINT | int,
+        uMapType: UINT | int,
     ) -> int:  # UINT
         ...
 
@@ -1158,7 +1160,8 @@ _MapVirtualKeyW.restype = UINT
 
 
 def _map_virtual_key(
-    uCode: int, uMapType: Literal[0, 1, 2, 3, 4]  # See _MAPVK_* constants
+    uCode: int,
+    uMapType: Literal[0, 1, 2, 3, 4],  # See _MAPVK_* constants
 ) -> int:
     """
     Abstraction layer over MapVirtualKeyW (winuser.h)
@@ -1343,8 +1346,7 @@ class _GetCursorPosType(Protocol):
 
 
 _GetCursorPos: _GetCursorPosType = hint_cast(
-    _GetCursorPosType,
-    _user32.GetCursorPos
+    _GetCursorPosType, _user32.GetCursorPos
 )
 """
 ----- GetCursorPos function (winuser.h) -----
@@ -1659,7 +1661,6 @@ US_QWERTY_MAPPING: Final[dict[str, ScancodeTypes]] = {
     "num7": 0x47,
     "num8": 0x48,
     "num9": 0x49,
-    "num0": 0x52,
     "clear": 0x4C,  # name from pyautogui
     # end numpad
     "tab": 0x0F,
@@ -1897,7 +1898,7 @@ _RT = TypeVar("_RT")  # return type
 
 # direct copy of _genericPyAutoGUIChecks()
 def _genericPyDirectInputChecks(
-    wrappedFunction: Callable[_PS, _RT]
+    wrappedFunction: Callable[_PS, _RT],
 ) -> Callable[_PS, _RT]:
     """
     Decorator for wrapping input functions.
@@ -2113,17 +2114,22 @@ def virtual_size() -> tuple[int, int, int, int]:
 
 # ----- are coordinates on primary monitor -------------------------------------
 @overload
-def on_primary_monitor(x: int | None = None, y: int | None = None) -> bool:
-    ...
+def on_primary_monitor(
+    x: int | None = None,
+    y: int | None = None,
+) -> bool: ...
 
 
 @overload
-def on_primary_monitor(x: tuple[int, int], y: None = None) -> bool:
-    ...
+def on_primary_monitor(
+    x: tuple[int, int],
+    y: None = None,
+) -> bool: ...
 
 
 def on_primary_monitor(
-    x: int | tuple[int, int] | None = None, y: int | None = None
+    x: int | tuple[int, int] | None = None,
+    y: int | None = None,
 ) -> bool:
     """
     Returns whether the given xy coordinates are on the primary screen or not.
@@ -2163,13 +2169,11 @@ onScreen = on_primary_monitor
 def valid_screen_coordinates(
     x: int | None = None,
     y: int | None = None,
-) -> bool:
-    ...
+) -> bool: ...
 
 
 @overload
-def valid_screen_coordinates(x: tuple[int, int], y: None = None) -> bool:
-    ...
+def valid_screen_coordinates(x: tuple[int, int], y: None = None) -> bool: ...
 
 
 def valid_screen_coordinates(
@@ -3267,7 +3271,7 @@ def _relative_mouse_move(
 def _helper_relative_move_target_coords(
     x: int | None,
     y: int | None,
-    target_coords_relative: bool
+    target_coords_relative: bool,
 ) -> tuple[int, int]:
     """
     Calculate target coordinates for relative mouse movement.
@@ -3300,7 +3304,7 @@ def _helper_relative_move_target_coords(
 def _helper_relative_mouse_move(
     x: int,
     y: int,
-    disable_mouse_acceleration: bool
+    disable_mouse_acceleration: bool,
 ) -> None:
     """
     When using MOUSEEVENTF_MOVE for relative movement the results may

@@ -5,8 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pydirectinput_rgx"
 version = "2.1.2"
-authors = [{name = "ReggX", email = "dev@reggx.eu"}]
-license = {text = "MIT"}
+authors = [{ name = "ReggX", email = "dev@reggx.eu" }]
+license = { text = "MIT" }
 description = "Python mouse and keyboard input automation for Windows using Direct Input."
 keywords = [
     "python",
@@ -59,3 +59,7 @@ include-package-data = false
 
 [tool.setuptools.package-data]
 pydirectinput = ["py.typed"]
+
+[tool.ruff]
+line-length = 80
+indent-width = 4
