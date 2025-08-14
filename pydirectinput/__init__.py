@@ -1915,10 +1915,14 @@ def _genericPyDirectInputChecks(
         if PAUSE:  # Skip _pause checks if PAUSE has been globally disabled.
             _pause: Any
             if "_pause" in kwargs:  # Fast track, low cost lookup.
-                _pause = kwargs["_pause"]
+                _pause = kwargs[
+                    "_pause"
+                ]  # pyrefly: ignore[unsupported-operation]
             else:  # Slow track, inspect.getcallargs() is expensive.
                 funcArgs: dict[str, Any] = inspect.getcallargs(
-                    wrappedFunction, *args, **kwargs
+                    wrappedFunction,
+                    *args,
+                    **kwargs,  # pyrefly: ignore[bad-argument-type]
                 )
                 _pause = funcArgs.get("_pause")
             _failSafeCheck()
@@ -2137,6 +2141,8 @@ def on_primary_monitor(
     If x and/or y argument(s) are not given, current mouse cursor coordinates
     will be used instead.
     """
+    _x: int | None
+    _y: int | None
     if isinstance(x, Sequence):
         assert not isinstance(x, int)  # remove int annotation, mypy needs this
         if y is not None:
@@ -2145,14 +2151,16 @@ def on_primary_monitor(
                 "if a second argument is also provided!"
             )
         try:
-            x, y = x[0], x[1]
+            _x, _y = x[0], x[1]
         except IndexError as e:
             raise ValueError(
                 "onScreen() does not accept single element sequences "
                 "as first argument!"
             ) from e
+    else:
+        _x, _y = x, y
 
-    x, y = position(x, y)
+    x, y = position(_x, _y)
     display_width: int
     display_height: int
     display_width, display_height = size()
@@ -2185,6 +2193,8 @@ def valid_screen_coordinates(
     If x and/or y argument(s) are not given, current mouse cursor coordinates
     will be used instead.
     """
+    _x: int | None
+    _y: int | None
     if isinstance(x, Sequence):
         assert not isinstance(x, int)  # remove int annotation, mypy needs this
         if y is not None:
@@ -2193,14 +2203,16 @@ def valid_screen_coordinates(
                 "if a second argument is also provided!"
             )
         try:
-            x, y = x[0], x[1]
+            _x, _y = x[0], x[1]
         except IndexError as e:
             raise ValueError(
                 "onScreen() does not accept single element sequences "
                 "as first argument!"
             ) from e
+    else:
+        _x, _y = x, y
 
-    x, y = position(x, y)
+    x, y = position(_x, _y)
     return _monitor_from_point(x, y) is not None
     # --------------------------------------------------------------------------
 

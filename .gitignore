@@ -8,3 +8,4 @@ __pycache__
 /publish_instructions.txt
 /venv*
 /docs
+uv.lock
