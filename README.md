@@ -69,10 +69,17 @@ pydirectinput.doubleClick()
 pydirectinput.moveTo(500, 500, duration=2)
 
 
-# Sometimes Windows will not move the mouse to the exact pixel you specify.
-# If you set attempt_pixel_perfect to True, PyDirectInput will attempt to move
-# the mouse to the exact pixel you specify.
-pydirectinput.moveTo(1000, 250, attempt_pixel_perfect=True)
+# DirectInput has two different ways to move the mouse cursor.
+# Absolute movement to target is more reliable and the default setting, even for
+# moveRel (pydirectinput will fetch the current mouse position and calculate
+# the target coordinates)
+# Relative movement is more unreliable and needs to be set explicitly by 
+# specifiying relative=True. This is also supported for moveTo (which will 
+# inversely substract the current postion to calculate the target offset)
+pydirectinput.moveTo(100, 250, relative=False)  # absolute movement API
+pydirectinput.moveRel(xOffset=250, relative=False)  # absolute movement API
+pydirectinput.moveTo(100, 250, relative=True)  # relative movement API
+pydirectinput.moveRel(xOffset=250, relative=True)  # relative movement API
 
 
 # Move mouse 100 pixels up, disable mouse acceleration for this move.
@@ -80,6 +87,12 @@ pydirectinput.moveTo(1000, 250, attempt_pixel_perfect=True)
 # so the library can disable it for you and restore your own settings
 # after the movement is finished.
 pydirectinput.moveRel(yOffset=-100, relative=True, disable_mouse_acceleration=True)
+
+
+# Sometimes Windows will not move the mouse to the exact pixel you specify.
+# If you set attempt_pixel_perfect to True, PyDirectInput will attempt to move
+# the mouse to the exact pixel you specify.
+pydirectinput.moveTo(1000, 250, relative=True, attempt_pixel_perfect=True)
 
 
 # Drag mouse to the x, y coordinates 100, 200

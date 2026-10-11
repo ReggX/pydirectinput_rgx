@@ -3380,12 +3380,15 @@ def moveTo(
     mouse between the start and the end position based on the current duration.
     The default tweening function is linear, which will move the mouse at a
     constant speed. See the `pytweening` package for more tweening functions.
+    Be aware that tweening only controls to the timing of movement, not the
+    path itself. If you need to non-linear movement (e.g. overshoot), then
+    use the `path_function` argument.
 
     `path_function` is a function that takes the start and end coordinates of
     the mouse movement (4 integers) and returns a list of coordinates (list of
-    tuples containting 2 integers each) that the mouse will move through.
-    The default path function is Bresenham's line algorithm, which will move
-    the mouse in a straight line.
+    tuples, each containting 2 integers (x,y)) that the mouse will move 
+    through. The default path function is Bresenham's line algorithm, which 
+    will move the mouse in a straight line.
 
     (*) `relative` parameter decides how the movement is executed:
 
@@ -3499,12 +3502,15 @@ def moveRel(
     mouse between the start and the end position based on the current duration.
     The default tweening function is linear, which will move the mouse at a
     constant speed. See the `pytweening` package for more tweening functions.
+    Be aware that tweening only controls to the timing of movement, not the
+    path itself. If you need to non-linear movement (e.g. overshoot), then
+    use the `path_function` argument.
 
     `path_function` is a function that takes the start and end coordinates of
     the mouse movement (4 integers) and returns a list of coordinates (list of
-    tuples containting 2 integers each) that the mouse will move through.
-    The default path function is Bresenham's line algorithm, which will move
-    the mouse in a straight line.
+    tuples, each containting 2 integers (x,y)) that the mouse will move 
+    through. The default path function is Bresenham's line algorithm, which 
+    will move the mouse in a straight line.
 
     `relative` parameter decides how the movement is executed:
 

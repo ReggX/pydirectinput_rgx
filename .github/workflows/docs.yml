@@ -19,14 +19,13 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
-          python-version: '3.12'
+          python-version: '3.x'
 
-      - run: pip install -e .
-      - run: pip install pdoc
-      - run: pdoc pydirectinput -o ./docs
+      - run: pip install -e . pdoc
+      - run: pdoc pydirectinput -o ./docs -t docs-theme
 
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -45,4 +44,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
